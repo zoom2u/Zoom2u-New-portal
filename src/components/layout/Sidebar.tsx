@@ -7,7 +7,6 @@ import {
   LayoutDashboard,
   Package,
   Plus,
-  History,
   Wallet,
   MapPin,
   Users,
@@ -20,13 +19,13 @@ import {
   BarChart3,
   FileText,
   Shield,
+  Megaphone,
 } from 'lucide-react'
 
 const customerNavItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/book', icon: Plus, label: 'New Booking' },
   { to: '/deliveries', icon: Package, label: 'My Deliveries' },
-  { to: '/history', icon: History, label: 'History' },
   { to: '/wallet', icon: Wallet, label: 'Wallet' },
   { to: '/addresses', icon: MapPin, label: 'Address Book' },
   { to: '/team', icon: Users, label: 'Team' },
@@ -36,6 +35,8 @@ const customerNavItems = [
 const adminNavItems = [
   { to: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/admin/bookings', icon: Package, label: 'All Bookings' },
+  { to: '/admin/updates', icon: Megaphone, label: 'Platform Updates' },
+  { to: '/admin/shred-services', icon: FileText, label: 'Shred Services' },
   { to: '/admin/tenants', icon: Building2, label: 'Tenants' },
   { to: '/admin/drivers', icon: Truck, label: 'Drivers' },
   { to: '/admin/pricing', icon: FileText, label: 'Pricing' },
@@ -59,15 +60,17 @@ export function Sidebar() {
       className="fixed left-0 top-0 z-40 h-screen bg-slate-900 text-white flex flex-col"
     >
       {/* Logo */}
-      <div className="flex items-center justify-between h-16 px-4 border-b border-slate-800">
+      <div className="flex items-center justify-between h-16 px-4 border-b border-slate-700">
         <motion.div
           initial={false}
           animate={{ opacity: sidebarCollapsed ? 0 : 1, width: sidebarCollapsed ? 0 : 'auto' }}
           className="overflow-hidden"
         >
-          <span className="text-xl font-bold bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent whitespace-nowrap">
-            Zoom2u
-          </span>
+          <img 
+            src="/images/Zoom2u Logo - Classic.png" 
+            alt="Zoom2u" 
+            className="h-8 w-auto brightness-0 invert"
+          />
         </motion.div>
         <button
           onClick={() => setSidebarCollapsed(!sidebarCollapsed)}

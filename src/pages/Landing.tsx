@@ -54,13 +54,7 @@ export function Landing() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative pt-20 pb-32 px-4 overflow-hidden">
-        {/* Background decorations */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-primary-200/30 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent-200/30 rounded-full blur-3xl" />
-        </div>
-
+      <section className="relative pt-20 pb-32 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left column - Text */}
@@ -74,7 +68,7 @@ export function Landing() {
               </Badge>
               <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
                 Deliver
-                <span className="bg-gradient-to-r from-primary-600 to-accent-500 bg-clip-text text-transparent">
+                <span style={{ color: '#00B4D8' }}>
                   {' '}anything,{' '}
                 </span>
                 anywhere
@@ -281,7 +275,7 @@ export function Landing() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-primary-600 to-primary-800 text-white">
+      <section className="py-20 px-4 text-white" style={{ backgroundColor: '#00B4D8' }}>
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-6">
             Ready to get started?
@@ -302,7 +296,7 @@ export function Landing() {
             <Button
               size="xl"
               variant="outline"
-              className="border-white/30 text-white hover:bg-white/10"
+              className="border-white border-2 text-white hover:bg-white hover:text-primary-600"
               onClick={() => navigate('/contact')}
             >
               Talk to Sales
@@ -327,7 +321,13 @@ export function Landing() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">Zoom2u</h3>
+              <div className="mb-4">
+                <img 
+                  src="/images/Zoom2u Logo - Classic.png" 
+                  alt="Zoom2u" 
+                  className="h-8 w-auto brightness-0 invert"
+                />
+              </div>
               <p className="text-slate-400 text-sm">
                 Australia's leading delivery marketplace connecting customers 
                 with professional drivers.

@@ -29,13 +29,7 @@ export function Layout() {
 
 export function AuthLayout() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900 flex items-center justify-center p-4">
-      {/* Decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-accent-500/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-primary-400/20 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-3xl" />
-      </div>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: '#00B4D8' }}>
       
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -51,16 +45,16 @@ export function AuthLayout() {
 
 export function PublicLayout() {
   return (
-    <div className={cn(
-      "min-h-screen",
-      "bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))]",
-      "from-slate-100 via-slate-50 to-white"
-    )}>
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200/50">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <a href="/" className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-accent-500 bg-clip-text text-transparent">
-            Zoom2u
+          <a href="/" className="flex items-center">
+            <img 
+              src="/images/Zoom2u Logo - Classic.png" 
+              alt="Zoom2u" 
+              className="h-10 w-auto"
+            />
           </a>
           <nav className="hidden md:flex items-center gap-6">
             <a href="/services" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">Services</a>
@@ -74,7 +68,7 @@ export function PublicLayout() {
             </a>
             <a
               href="/register"
-              className="btn-primary text-sm px-4 py-2"
+              className="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium bg-primary-600 text-white hover:bg-primary-700 shadow-md transition-colors"
             >
               Get Started
             </a>

@@ -31,7 +31,7 @@ export async function getCurrentTenantId(): Promise<string | null> {
   if (!user) return null
   
   const { data } = await supabase
-    .from('user_profiles')
+    .from('z2u_user_profiles')
     .select('tenant_id')
     .eq('id', user.id)
     .single()

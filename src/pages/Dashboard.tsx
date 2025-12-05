@@ -9,14 +9,14 @@ import { formatCurrency, formatRelativeTime, getStatusLabel } from '@/lib/utils'
 import {
   Plus,
   Package,
-  TrendingUp,
   Clock,
   MapPin,
   ArrowRight,
   Truck,
   CheckCircle,
-  AlertCircle,
   Calendar,
+  Megaphone,
+  Info,
 } from 'lucide-react'
 
 // Mock data for demo
@@ -58,6 +58,24 @@ const stats = [
   { label: 'This Month', value: '24', change: '+8%', icon: Calendar, color: 'bg-green-500' },
   { label: 'In Transit', value: '3', change: '', icon: Truck, color: 'bg-amber-500' },
   { label: 'Avg. Delivery Time', value: '2.4h', change: '-15%', icon: Clock, color: 'bg-purple-500' },
+]
+
+// Mock platform updates - in production this would come from Supabase
+const platformUpdates = [
+  {
+    id: '1',
+    title: 'Holiday Season Hours',
+    content: 'Please note our operating hours will be adjusted during the holiday period from Dec 24 - Jan 2. Same-day cutoff will be moved to 10am.',
+    type: 'info',
+    created_at: new Date(Date.now() - 2 * 24 * 3600000).toISOString(),
+  },
+  {
+    id: '2',
+    title: 'New Service: White Glove Delivery',
+    content: 'We now offer premium White Glove service including assembly, room placement and packaging removal. Available in all metro areas.',
+    type: 'feature',
+    created_at: new Date(Date.now() - 5 * 24 * 3600000).toISOString(),
+  },
 ]
 
 const statusVariants: Record<string, 'pending' | 'on-route' | 'delivered' | 'failed'> = {
@@ -205,32 +223,8 @@ export function Dashboard() {
           </Card>
         </motion.div>
 
-        {/* Quick Actions & Activity */}
+        {/* Wallet & Updates */}
         <motion.div variants={itemVariants} className="space-y-6">
-          {/* Quick Actions */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Link to="/book" className="block">
-                <Button fullWidth variant="primary" leftIcon={<Plus className="h-4 w-4" />}>
-                  New Standard Booking
-                </Button>
-              </Link>
-              <Link to="/book?mode=batch" className="block">
-                <Button fullWidth variant="secondary" leftIcon={<Package className="h-4 w-4" />}>
-                  Batch Delivery
-                </Button>
-              </Link>
-              <Link to="/book?type=marketplace" className="block">
-                <Button fullWidth variant="ghost" leftIcon={<TrendingUp className="h-4 w-4" />}>
-                  Post to Marketplace
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
           {/* Wallet Balance */}
           <Card className="bg-gradient-to-br from-primary-600 to-primary-700 text-white border-0">
             <CardContent className="p-6">
@@ -248,25 +242,67 @@ export function Dashboard() {
             </CardContent>
           </Card>
 
-          {/* Alerts */}
+          {/* Zoom2u Updates */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <AlertCircle className="h-5 w-5 text-amber-500" />
-                Attention Needed
+                <Megaphone className="h-5 w-5 text-primary-500" />
+                Zoom2u Updates
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                <div className="p-3 bg-amber-50 rounded-lg border border-amber-100">
-                  <p className="text-sm font-medium text-amber-800">Address verification pending</p>
-                  <p className="text-xs text-amber-600 mt-1">
-                    Complete verification to unlock all features
+              <div className="space-y-4">
+                {platformUpdates.length > 0 ? (
+                  platformUpdates.map((update) => (
+                    <div 
+                      key={update.id} 
+                      className={`p-4 rounded-lg border ${
+                        update.type === 'info' 
+                          ? 'bg-blue-50 border-blue-100' 
+                          : update.type === 'feature'
+                          ? 'bg-green-50 border-green-100'
+                          : 'bg-slate-50 border-slate-100'
+                      }`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <Info className={`h-5 w-5 flex-shrink-0 mt-0.5 ${
+                          update.type === 'info' 
+                            ? 'text-blue-500' 
+                            : update.type === 'feature'
+                            ? 'text-green-500'
+                            : 'text-slate-500'
+                        }`} />
+                        <div>
+                          <p className={`text-sm font-semibold ${
+                            update.type === 'info' 
+                              ? 'text-blue-900' 
+                              : update.type === 'feature'
+                              ? 'text-green-900'
+                              : 'text-slate-900'
+                          }`}>
+                            {update.title}
+                          </p>
+                          <p className={`text-sm mt-1 ${
+                            update.type === 'info' 
+                              ? 'text-blue-700' 
+                              : update.type === 'feature'
+                              ? 'text-green-700'
+                              : 'text-slate-600'
+                          }`}>
+                            {update.content}
+                          </p>
+                          <p className="text-xs text-slate-400 mt-2">
+                            {formatRelativeTime(update.created_at)}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-sm text-slate-500 text-center py-4">
+                    No updates at this time
                   </p>
-                  <Link to="/settings/verification" className="text-xs text-amber-700 font-medium hover:underline mt-2 inline-block">
-                    Verify now →
-                  </Link>
-                </div>
+                )}
               </div>
             </CardContent>
           </Card>

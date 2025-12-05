@@ -31,10 +31,14 @@ export function Login() {
   const onSubmit = async (data: LoginForm) => {
     setIsLoading(true)
     try {
+      console.log('Attempting login for:', data.email)
+      
       const { data: authData, error } = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       })
+
+      console.log('Auth result:', { user: authData?.user?.id, error })
 
       if (error) throw error
 
@@ -42,16 +46,18 @@ export function Login() {
         setUser(authData.user)
         
         // Fetch user profile
-        const { data: profile } = await supabase
-          .from('user_profiles')
-          .select('*, tenants(*)')
+        const { data: profile, error: profileError } = await supabase
+          .from('z2u_user_profiles')
+          .select('*, z2u_tenants(*)')
           .eq('id', authData.user.id)
           .single()
 
+        console.log('Profile result:', { profile, profileError })
+
         if (profile) {
           setProfile(profile)
-          if (profile.tenants) {
-            setTenant(profile.tenants as never)
+          if (profile.z2u_tenants) {
+            setTenant(profile.z2u_tenants as never)
           }
         }
 
@@ -59,6 +65,7 @@ export function Login() {
         navigate('/dashboard')
       }
     } catch (error) {
+      console.error('Login error:', error)
       toast.error('Login failed', error instanceof Error ? error.message : 'Please check your credentials and try again.')
     } finally {
       setIsLoading(false)
@@ -74,10 +81,14 @@ export function Login() {
     >
       {/* Logo */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-primary-600 to-accent-500 bg-clip-text text-transparent">
-          Zoom2u
-        </h1>
-        <p className="text-slate-500 mt-2">Sign in to your account</p>
+        <div className="flex justify-center mb-4">
+          <img 
+            src="/images/Zoom2u Logo - Classic.png" 
+            alt="Zoom2u" 
+            className="h-12 w-auto"
+          />
+        </div>
+        <p className="text-slate-500">Sign in to your account</p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">

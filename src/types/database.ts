@@ -80,15 +80,18 @@ export interface Database {
         Row: {
           id: string
           user_id: string
-          tenant_id: string
+          tenant_id: string | null
           label: string
           street_address: string
           suburb: string
           state: string
           postcode: string
           country: string
-          lat: number | null
-          lng: number | null
+          contact_name: string | null
+          contact_phone: string | null
+          contact_email: string | null
+          pickup_notes: string | null
+          delivery_notes: string | null
           is_default: boolean
           created_at: string
           updated_at: string

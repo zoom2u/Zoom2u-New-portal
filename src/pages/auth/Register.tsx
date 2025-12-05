@@ -99,10 +99,14 @@ export function Register() {
     >
       {/* Logo */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-primary-600 to-accent-500 bg-clip-text text-transparent">
-          Zoom2u
-        </h1>
-        <p className="text-slate-500 mt-2">Create your account</p>
+        <div className="flex justify-center mb-4">
+          <img 
+            src="/images/Zoom2u Logo - Classic.png" 
+            alt="Zoom2u" 
+            className="h-12 w-auto"
+          />
+        </div>
+        <p className="text-slate-500">Create your account</p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

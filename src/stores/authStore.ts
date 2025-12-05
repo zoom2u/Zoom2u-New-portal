@@ -22,9 +22,9 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       profile: null,
       tenant: null,
-      isLoading: true,
+      isLoading: false,  // Start as false to prevent stuck loading
       isAuthenticated: false,
-      setUser: (user) => set({ user, isAuthenticated: !!user }),
+      setUser: (user) => set({ user, isAuthenticated: !!user, isLoading: false }),
       setProfile: (profile) => set({ profile }),
       setTenant: (tenant) => set({ tenant }),
       setLoading: (isLoading) => set({ isLoading }),
@@ -32,7 +32,8 @@ export const useAuthStore = create<AuthState>()(
         user: null, 
         profile: null, 
         tenant: null, 
-        isAuthenticated: false 
+        isAuthenticated: false,
+        isLoading: false
       }),
     }),
     {
@@ -41,6 +42,7 @@ export const useAuthStore = create<AuthState>()(
         user: state.user,
         profile: state.profile,
         tenant: state.tenant,
+        isAuthenticated: state.isAuthenticated,
       }),
     }
   )
